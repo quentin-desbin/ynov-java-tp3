@@ -1,7 +1,5 @@
 package com.ynov.tp3;
 
-import java.time.LocalDate;
-
 public class Car {
 
     private final String name;
@@ -18,6 +16,7 @@ public class Car {
     private double currentFuel;
     private Double consumption;
 
+    // A simple car constructor
     public Car(final String name, final Brand brand, final int maxNbDoors, final double maxFuel) {
         this.name = name;
         this.brand = brand;
@@ -25,9 +24,11 @@ public class Car {
         this.maxFuel = maxFuel;
     }
 
-    public void addDoor() {
-        final int newNbDoors = nbDoors + 1;
-        nbDoors = Math.min(newNbDoors, maxNbDoors);
+    // A more complete car constructor
+    public Car(final String name, final Brand brand, final int maxNbDoors, final double maxFuel, final Motor motor, final double consumption) {
+        this(name, brand, maxNbDoors, maxFuel);
+        this.motor = motor;
+        this.consumption = consumption;
     }
 
     public void addDoors(final int nbDoorsToAdd) {

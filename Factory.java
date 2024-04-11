@@ -16,6 +16,8 @@ public class Factory {
 
         car1.drive(200);
 
+        // OR using new Car with full constructor
+
         System.out.println(car1);
     }
 }

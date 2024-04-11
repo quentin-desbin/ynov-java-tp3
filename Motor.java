@@ -10,7 +10,7 @@ public class Motor {
         this.power = power;
     }
 
-    protected enum MotorType {
+    public enum MotorType {
         DIESEL, ESSENCE, ELECTRIC
     }
 
