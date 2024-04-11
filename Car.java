@@ -1,33 +1,25 @@
 package com.ynov.tp3;
 
-public class Car {
-
-    private final String name;
-    private final Brand brand;
+public class Car extends Vehicle {
     private final int maxNbDoors;
-    private final double maxFuel;
-
-    private Motor motor;
-
-    private Integer yearOfConstruction;
     private int nbDoors;
 
-    private double nbKilometers;
+    private final double maxFuel;
     private double currentFuel;
     private Double consumption;
 
     // A simple car constructor
     public Car(final String name, final Brand brand, final int maxNbDoors, final double maxFuel) {
-        this.name = name;
-        this.brand = brand;
+        super(name, brand);
         this.maxNbDoors = maxNbDoors;
+        this.nbDoors = 0;
         this.maxFuel = maxFuel;
+        this.currentFuel = 0;
+        this.consumption = null;
     }
 
-    // A more complete car constructor
-    public Car(final String name, final Brand brand, final int maxNbDoors, final double maxFuel, final Motor motor, final double consumption) {
-        this(name, brand, maxNbDoors, maxFuel);
-        this.motor = motor;
+    public void setMotor(final Motor motor, final double consumption) {
+        super.setMotor(motor);
         this.consumption = consumption;
     }
 
@@ -36,19 +28,7 @@ public class Car {
         nbDoors = Math.min(newNbDoors, maxNbDoors);
     }
 
-    public void setMotor(final Motor motor, final double consumption) {
-        this.motor = motor;
-        this.consumption = consumption;
-    }
-
-    public void setYearOfConstruction(final int yearOfConstruction) {
-        this.yearOfConstruction = yearOfConstruction;
-    }
-
-    public boolean isConstruct() {
-        return yearOfConstruction != null && nbDoors == maxNbDoors && motor != null;
-    }
-
+    @Override
     public void drive(final double nbKilometers) {
         if (isConstruct() && currentFuel > 0) {
             double litersConsumed = (nbKilometers * consumption) / 100;
@@ -58,10 +38,15 @@ public class Car {
             double realDistance  = (delta * 100) / consumption;
 
             currentFuel = newCurrentFuel;
-            this.nbKilometers += realDistance;
+            addKilometers(realDistance);
         } else {
             System.out.println("[ERROR] cannot drive because car is not constructed or don't have any fuel");
         }
+    }
+
+    @Override
+    public boolean isConstruct() {
+        return super.isConstruct() && nbDoors == maxNbDoors && consumption != null;
     }
 
     public void addFuel(double nbFuel) {
@@ -70,14 +55,9 @@ public class Car {
     }
 
     public String toString() {
-        return "--------------------\n" +
-                "Car name = " + name + "\n" +
-                "Brand = " + brand + "\n" +
-                "Motor = " + motor + "\n" +
+        return super.toString() + "\n" +
                 "Doors = " + nbDoors + "/" + maxNbDoors + "\n" +
                 "Fuel = " + currentFuel + "/" + maxFuel + "\n" +
-                "Consumption = " + consumption + " l/100km" + "\n" +
-                "Nb kilometers = " + nbKilometers + "\n" +
-                (isConstruct() ? "Year of construction = " + yearOfConstruction : "Not yet construct");
+                "Consumption = " + consumption + " l/100km";
     }
 }
