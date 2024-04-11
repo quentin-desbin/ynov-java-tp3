@@ -20,8 +20,6 @@ public abstract class Vehicle {
         this.motor = motor;
     }
 
-    abstract void drive(double nbKilometers);
-
     public void setMotor(final Motor motor) {
         this.motor = motor;
     }

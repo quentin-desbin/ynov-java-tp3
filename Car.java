@@ -1,6 +1,6 @@
 package com.ynov.tp3;
 
-public class Car extends Vehicle {
+public class Car extends Vehicle implements Driveable {
     private final int maxNbDoors;
     private int nbDoors;
 
